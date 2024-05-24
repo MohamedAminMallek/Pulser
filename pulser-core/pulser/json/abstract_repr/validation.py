@@ -63,7 +63,7 @@ if USE_FASTJSONSCHEMA:
 
         Args:
             obj_str: A JSON-formatted string encoding the object.
-            name: The type of object to validate (can be "sequence" or 
+            name: The type of object to validate (can be "sequence" or
             "device").
         """
         VALIDATORS[name](json.loads(obj_str))
@@ -96,7 +96,7 @@ else:
 
         Args:
             obj_str: A JSON-formatted string encoding the object.
-            name: The type of object to validate (can be "sequence" or 
+            name: The type of object to validate (can be "sequence" or
             "device").
         """
         obj = json.loads(obj_str)

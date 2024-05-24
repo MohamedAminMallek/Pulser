@@ -15,8 +15,9 @@
 import json
 from typing import Literal
 
-from pulser.json.abstract_repr import SCHEMAS
 import fastjsonschema
+
+from pulser.json.abstract_repr import SCHEMAS
 
 registry = {
     "device-schema.json": SCHEMAS["device"]["definitions"],
@@ -24,6 +25,7 @@ registry = {
     "register-schema.json": SCHEMAS["register"]["definitions"],
     "noise-schema.json": SCHEMAS["noise"],
 }
+
 
 def resolve_references(schema, registry):
     if isinstance(schema, dict):
@@ -33,20 +35,19 @@ def resolve_references(schema, registry):
             return schema
         else:
             return {
-                k: resolve_references(v, registry)
-                for k, v in schema.items()
+                k: resolve_references(v, registry) for k, v in schema.items()
             }
     elif isinstance(schema, list):
         return [resolve_references(item, registry) for item in schema]
     else:
         return schema
 
+
 VALIDATORS = {
-    name: fastjsonschema.compile(
-        resolve_references(SCHEMAS[name], registry)
-    )
+    name: fastjsonschema.compile(resolve_references(SCHEMAS[name], registry))
     for name in ["sequence", "device", "layout", "register", "noise"]
 }
+
 
 def validate_abstract_repr(
     obj_str: str,

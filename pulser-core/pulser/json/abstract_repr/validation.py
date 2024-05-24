@@ -27,7 +27,7 @@ registry = {
 }
 
 
-def resolve_references(schema, registry):
+def resolve_references(schema: dict | list, registry: dict) -> dict | list:
     if isinstance(schema, dict):
         if "$ref" in schema and schema["$ref"] in registry:
             v = schema.pop("$ref")

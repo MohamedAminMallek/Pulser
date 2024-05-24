@@ -63,12 +63,14 @@ if USE_FASTJSONSCHEMA:
 
         Args:
             obj_str: A JSON-formatted string encoding the object.
-            name: The type of object to validate (can be "sequence" or "device").
+            name: The type of object to validate (can be "sequence" or 
+            "device").
         """
         VALIDATORS[name](json.loads(obj_str))
 
 else:
     from importlib.metadata import version
+
     import jsonschema
     from referencing import Registry, Resource
 
@@ -94,7 +96,8 @@ else:
 
         Args:
             obj_str: A JSON-formatted string encoding the object.
-            name: The type of object to validate (can be "sequence" or "device").
+            name: The type of object to validate (can be "sequence" or 
+            "device").
         """
         obj = json.loads(obj_str)
         validate_args = dict(instance=obj, schema=SCHEMAS[name])

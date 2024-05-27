@@ -23,7 +23,6 @@ registry = {
     "device-schema.json": SCHEMAS["device"]["definitions"],
     "layout-schema.json": SCHEMAS["layout"]["definitions"],
     "register-schema.json": SCHEMAS["register"]["definitions"],
-    # "noise-schema.json": SCHEMAS["noise"],
 }
 
 
@@ -45,13 +44,13 @@ def resolve_references(schema: dict | list, registry: dict) -> dict | list:
 
 VALIDATORS = {
     name: fastjsonschema.compile(resolve_references(SCHEMAS[name], registry))
-    for name in ["device", "sequence", "register", "layout"]# , "noise"]
+    for name in ["device", "sequence", "register", "layout"]
 }
 
 
 def validate_abstract_repr(
     obj_str: str,
-    name: Literal["device", "sequence", "register", "layout"]# , "noise"],
+    name: Literal["device", "sequence", "register", "layout"],
 ) -> None:
     """Validate the abstract representation of an object.
 
